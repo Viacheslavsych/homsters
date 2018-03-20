@@ -21,11 +21,11 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public LoginPage login(String emailOrPhone, String password) {
+    public void login(String emailOrPhone, String password) {
         driver.findElement(emailOrPhoneLocator).sendKeys(emailOrPhone);
         driver.findElement(passwordLocator).sendKeys(password);
         driver.findElement(submitPrimaryButtonLocator).click();
-        return new LoginPage(driver);
+
     }
 
     public LoginPage loginFromPopup(String emailOrPhone, String password) {
@@ -43,20 +43,12 @@ public class LoginPage extends BasePage {
 
     public boolean checkIsLoginSuccess(String expectedLoginMessage) {
         String actualLoginMessage = driver.findElement(assertLoginTextLocator).getText();
-        if (actualLoginMessage.contains(expectedLoginMessage)) {
-            return true;
-        } else {
-            return false;
-        }
+        return actualLoginMessage.contains(expectedLoginMessage);
     }
 
     public boolean checkIsLoginPopupOpen(String expectedLoginMessage) {
         String actualLoginMessage = driver.findElement(assertLoginSecondaryTextLocator).getText();
-        if (actualLoginMessage.contains(expectedLoginMessage)) {
-            return true;
-        } else {
-            return false;
-        }
+        return actualLoginMessage.contains(expectedLoginMessage);
     }
 
     public void logout() {
